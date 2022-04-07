@@ -16,6 +16,7 @@ loop:
 	adr	x17, msg+6	/* msg+6 position, first # */
 	cmp	x19, 9
 	b.gt	greater
+	mov	x15, ' '
 	strb	w15, [x17]	
 	b	loop2
 greater:
