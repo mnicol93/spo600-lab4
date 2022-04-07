@@ -9,6 +9,10 @@ _start:
 	mov	x19, min	/* loop counter */
 
 loop:
+// Preparing message
+	add	x18, x19, '0'	/* add character 0 plus iter value */
+	adr	x17, msg+7	/* msg+6 position of first # */
+	strb	w18, [x17]	/* store one byte from r18 into r17 */
  
 	mov     x0, 1           /* file descriptor: 1 is stdout */
 	adr     x1, msg   	/* message location (memory address) */
