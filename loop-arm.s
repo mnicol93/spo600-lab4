@@ -14,14 +14,13 @@ loop:
 	udiv	x18,x19,x9	/* divide counter to obtain first decimal*/
 	add	x18, x18, '0'	/* add character 0 plus iter value */
 	adr	x17, msg+6	/* msg+6 position, first # */
-	cmp	x19, 9
-	b.gt	greater
-	mov	x15, ' '
-	strb	w15, [x17]	
-	b	loop2
+	cmp	x19, 9		/* compare counter to 10 to add one or two decimals */
+	b.gt	greater		
+	mov	x15, ' '	/* if smaller, move a space into r15 */
+	strb	w15, [x17]	/* store one byte (space) into address msg+6 */
+	b	loop2		/* skip adding number, space added */
 greater:
 	strb	w18, [x17]	/* store one byte from r18 into r17 */
-	b	loop2
  
 loop2:	msub	x16,x9,x18,x19	/* reminder r3-(r1*r2) -> x19 - (x9*x18) */
 	add	x16, x16, 0x10  /* +0x10 because x18 already has +'0'  */
